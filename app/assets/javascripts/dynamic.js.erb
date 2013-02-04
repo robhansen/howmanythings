@@ -1,0 +1,49 @@
+
+function dimensionChanged() {
+  var dimValue = document.getElementById("dimension").value;
+
+  var lengthArray=<%= Length.getUnitsJavascriptArray %>;
+  var massArray=<%= Mass.getUnitsJavascriptArray %>;
+  var volumeArray=<%= Volume.getUnitsJavascriptArray %>;
+
+  var arrToUse = [];
+
+  if (dimValue=="Length" || dimValue=="Height") arrToUse = lengthArray;
+  else if (dimValue=="Mass") arrToUse = massArray;
+  else if (dimValue=="Volume") arrToUse = volumeArray;
+
+  if (arrToUse.length>0)
+  {
+    unitSelector = document.getElementById("unit");
+    unitSelector.options.length = 0;
+    for (var i=0;i<arrToUse.length;i++)
+    {
+      unitSelector.options[i]=new Option(arrToUse[i], arrToUse[i]);
+    }
+    $("#section2").fadeIn();
+  }
+  else
+  {
+    $("#section2").fadeOut("fast");
+    $("#section3").fadeOut("fast");
+    unitSelector = document.getElementById("unit");
+    unitSelector.options.length = 0;
+    amount = document.getElementById("amount");
+    amount.value = "";
+  }
+}
+
+function amountChanged()
+{
+  var amount = +document.getElementById("amount").value;
+  if (amount!=0 && !isNaN(amount))
+  {
+    document.getElementById("submit").disabled = false;
+    $("#section3").fadeIn();
+  }
+  else
+  {
+    document.getElementById("submit").disabled = true;
+    $("#section3").fadeOut("fast");
+  }
+}

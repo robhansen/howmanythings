@@ -1,0 +1,11 @@
+<h1>Debug</h1>
+
+<% arrayOfDimensionClasses.each do |dimension| %>
+  <div class="hero-unit">
+    <h2><%= dimension.type %></h2>
+    <br><i><%= dimension.units.join(", ") %></i></br>
+    <% dimension.things.each do |thing| %>
+    <br><%= thing.singular %> = <%= thing.amount >= 10000 ? "%.2e" % thing.amount : thing.amount.to_s %> <%= dimension.units[0] %></br>
+    <% end %>
+  </div>
+<% end %>

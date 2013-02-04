@@ -1,0 +1,66 @@
+
+<% dimension = nil
+   dimension = Mass if params[:dimension]=="Mass"
+   dimension = Length if params[:dimension]=="Length"
+   dimension = Height if params[:dimension]=="Height"
+   dimension = Volume if params[:dimension]=="Volume"
+
+   standardAmount = nil
+   if dimension != nil
+     standardAmount = dimension.getStandardAmount(params[:amount].to_f, params[:unit])
+   end
+
+   if standardAmount!=nil %>
+   <div class="hero-unit">
+     <h2><%= params[:amount]+" "+params[:unit] %> <%= dimension.typeString %> <b><%= dimension.getThingString(standardAmount) %></b>.</h2>
+   </div>
+<% else %>
+   <div class="hero-unit">
+     <h2><br>How far is eight hundred miles, really? What is half a gram? Or ten thousand acres? Visualising is easier if you have something you're familiar with to reference - a thousand tonnes is tricky to imagine, but it's a lot easier if you know it's equivalent to five and a half blue whales.</br><br>Just put in your measurements below, and let <b>HowManyThings.com</b> tell you what that's equivalent to, in anything from atoms to planets.</br></h2>
+   </div>
+<% end %>
+
+  <%= form_tag "/", :id => 'mainForm' do %>
+    <span id="section1">
+      <div class="row"><div class="span6 offset1">
+        <% viewDimensionArray = ["Select..."] + arrayOfDimensions %>
+        <div class="input-append">
+          <span class="label">Select a dimension ...</span>
+        </div>
+      </div></div>
+      <div class="row"><div class="span6 offset2">
+        <%= select_tag(:dimension, options_for_select(viewDimensionArray, params[:dimension]), :onchange => "javascript: dimensionChanged();", :style => "margin-bottom: 10px;") %>
+      </div></div>
+<% visibilityString = ""   
+   enabledHash = {}
+   if standardAmount==nil
+     #visibilityString = ' style="visibility:hidden;"'.html_safe 
+     visibilityString = ' style="display:none;"'.html_safe 
+     enabledHash = {:disabled => true}
+   end
+%>
+    </span>
+    <span id="section2"<%=visibilityString%>> 
+      <div class="row"><div class="span6 offset3">
+        <div class="input-append">
+          <span class="label">... put in an amount and unit ...</span>
+        </div>
+      </div></div>
+      <div class="row"><div class="span6 offset4">
+        <%= text_field_tag(:amount, params[:amount], :onchange => "javascript:amountChanged();", :onkeydown => "javascript:amountChanged();", :style => "margin-bottom: 10px;") %>
+        <% unitArray = []
+           unitArray = dimension.units if dimension!=nil %>
+        <%= select_tag(:unit, options_for_select(unitArray, params[:unit]), :style => "margin-bottom: 10px;") %>
+      </div></div>
+    </span>
+    <span id="section3"<%=visibilityString%>>
+      <div class="row"><div class="span6 offset5">
+        <div class="input-append">
+          <span class="label">... and off you go!</span>
+        </div>
+      </div></div>
+      <div class="row"><div class="span6 offset6">    
+        <%= submit_tag("Calculate", enabledHash.merge(:id => 'submit', :class => "btn btn-large", :style => "margin-bottom: 10px;") ) %>
+      </div></div>
+    </span>
+  <% end %>

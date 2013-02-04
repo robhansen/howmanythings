@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>How Many Things...</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
+</head>
+<body>
+
+<%= render 'layouts/noscript' %>
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to "How Many Things...", root_path, :id => "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <li><%= link_to "About", "#about", "data-toggle" => "modal" %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+<%= yield %>
+
+<%= render 'layouts/aboutDialog' %>
+
+<footer class="footer">
+  <small>
+    Site by Robert Hansen
+  </small>
+</footer>
+</div>
+</body>
+</html>

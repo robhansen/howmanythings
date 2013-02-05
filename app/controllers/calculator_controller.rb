@@ -69,20 +69,9 @@ class Dimension
       nil
     end
   end
-
-  def self.getUnitsJavascriptArray
-    rubyArray = self.units
-    javascriptArray = "["
-    for i in 0..(rubyArray.length-1)
-      javascriptArray = javascriptArray + "," if i!=0
-      javascriptArray = javascriptArray + "\"" + rubyArray[i]+"\""
-    end
-    javascriptArray+"]"
-  end
 end
 
 class Length < Dimension
-
   THINGS = 
     [
     Thing.new("width of a proton", 0.000000000000001, "protons wide"),
@@ -116,7 +105,7 @@ class Length < Dimension
     ]
 
   def self.units
-    ["metres", "feet", "inches", "kilometres", "miles", "millimetres"]
+     ["metres", "feet", "inches", "kilometres", "miles", "millimetres"]
   end
 
   def self.unitFactors

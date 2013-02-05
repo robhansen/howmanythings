@@ -17,4 +17,18 @@ def arrayOfDimensionClasses
   [Length, Height, Mass, Volume]
 end
 
+# would prefer these units to be in controller, but can't figure out how to access controller class methods when precompiling assets
+LengthUnits = ["metres", "feet", "inches", "kilometres", "miles", "millimetres"]
+VolumeUnits = ["litres", "cubic centimetres", "cubic metres", "millilitres", "cubic inches", "gallon (Imperial)", "gallon (US, liquid)", "pint (Imperial)", "pint (US, liquid)"]
+MassUnits = ["kilograms", "grams", "tonnes (metric)", "ounces", "pounds", "tons (US)"]
+
+def toJavascriptArray(arr)
+    javascriptArray = "["
+    for i in 0..(arr.length-1)
+      javascriptArray = javascriptArray + "," if i!=0
+      javascriptArray = javascriptArray + "\"" + arr[i]+"\""
+    end
+    javascriptArray+"]"
+end
+
 end

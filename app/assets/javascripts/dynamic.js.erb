@@ -2,9 +2,10 @@
 function dimensionChanged() {
   var dimValue = document.getElementById("dimension").value;
 
-  var lengthArray=<%= Length.getUnitsJavascriptArray %>;
-  var massArray=<%= Mass.getUnitsJavascriptArray %>;
-  var volumeArray=<%= Volume.getUnitsJavascriptArray %>;
+<% environment.context_class.instance_eval { include CalculatorHelper } %>
+  var lengthArray= <%= toJavascriptArray LengthUnits %>
+  var volumeArray= <%= toJavascriptArray VolumeUnits %>
+  var massArray= <%= toJavascriptArray MassUnits %>
 
   var arrToUse = [];
 

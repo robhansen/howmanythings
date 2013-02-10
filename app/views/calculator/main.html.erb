@@ -20,7 +20,7 @@
    </div>
 <% end %>
 
-  <%= form_tag "/", :id => 'mainForm' do %>
+  <form action="/" id="mainForm" method="get">
     <span id="section1">
       <div class="row"><div class="span6 offset1">
         <% viewDimensionArray = ["Select..."] + arrayOfDimensions %>
@@ -33,10 +33,12 @@
       </div></div>
 <% visibilityString = ""   
    enabledHash = {}
+   enabledString = ""
    if standardAmount==nil
      #visibilityString = ' style="visibility:hidden;"'.html_safe 
      visibilityString = ' style="display:none;"'.html_safe 
      enabledHash = {:disabled => true}
+     enabledString = ' disabled="disabled"'.html_safe
    end
 %>
     </span>
@@ -59,8 +61,8 @@
           <span class="label">... and off you go!</span>
         </div>
       </div></div>
-      <div class="row"><div class="span6 offset6">    
-        <%= submit_tag("Calculate", enabledHash.merge(:id => 'submit', :class => "btn btn-large", :style => "margin-bottom: 10px;") ) %>
+      <div class="row"><div class="span6 offset6">
+        <input class="btn btn-large"<%= enabledString %> id="submit" style="margin-bottom: 10px;" type="submit" value="Calculate" />
       </div></div>
     </span>
-  <% end %>
+  </form>
